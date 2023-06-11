@@ -71,6 +71,8 @@ module Users
         audit_type: AuditRecord.audit_types[:delete_account],
         school_id: @user.school_id,
         metadata: {
+          cohort_ids: @user.cohorts.pluck(:id),
+          organisation_id: @user.organisation_id,
           email: @user.email,
           account_deletion_notification_sent_at:
             @user.account_deletion_notification_sent_at&.iso8601

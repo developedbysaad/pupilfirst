@@ -130,6 +130,12 @@ describe Users::DeleteAccountService do
         expect(audit_record.audit_type).to eq(
           AuditRecord.audit_types[:delete_account]
         )
+        expect(audit_record.metadata["cohort_ids"]).to eq(
+          user.cohorts.pluck(:id)
+        )
+        expect(audit_record.metadata["organisation_id"]).to eq(
+          user.organisation_id
+        )
         expect(audit_record.metadata["email"]).to eq(user.email)
         expect(
           audit_record.metadata["account_deletion_notification_sent_at"]
